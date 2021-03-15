@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.cuizhanming
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, asciidoctor, config-kubernetes, config4k, github-workflow-graal-docker-registry, graalvm, gradle, graphql, http-client, jib, knative, kotest, kotlin, kotlin-application, kubernetes, logback, management, mongo-reactive, netty-server, openapi, readme, shade, testcontainers, tracing-jaeger]

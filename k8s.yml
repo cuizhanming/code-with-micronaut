@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "code-with-micronaut"
+spec:
+  selector:
+    matchLabels:
+      app: "code-with-micronaut"
+  template:
+    metadata:
+      labels:
+        app: "code-with-micronaut"
+    spec:
+      containers:
+        - name: "code-with-micronaut"
+          image: "gcr.io/code-with-micronaut/jib-image"
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "code-with-micronaut"
+spec:
+  selector:
+    app: "code-with-micronaut"
+  type: LoadBalancer
+  ports:
+    - protocol: "TCP"
+      port: 8080
